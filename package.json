@@ -1,0 +1,29 @@
+{
+  "name": "findarr",
+  "version": "1.0.0",
+  "description": "Movie finder with Radarr integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shiqan/Findarr.git"
+  },
+  "keywords": [
+    "graphql",
+    "tmdb",
+    "radarr"
+  ],
+  "author": "Shiqan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Shiqan/Findarr/issues"
+  },
+  "homepage": "https://github.com/Shiqan/Findarr#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2"
+  }
+}
