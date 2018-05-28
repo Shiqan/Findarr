@@ -1,24 +1,6 @@
-require('dotenv').config();
-
 const graphql = require('graphql');
-
-var Promise = require("bluebird");
-var MovieDB = Promise.promisifyAll(require('moviedb')(''));
-
-const Movies = [
-    {
-      id: '8dlx7ak38fd39dv79ad', 
-      title: 'Black Panther',
-    },
-    {
-      id: 'jd3kd03d0w9a0l35rh74', 
-      title: 'Infinity War',
-    },
-    {
-      id: '0hy894hf0dlkfh9oinv', 
-      title: 'Ready Player One',
-    }
-];
+const Promise = require("bluebird");
+const MovieDB = Promise.promisifyAll(require('moviedb')(process.env.TMDB_API_KEY));
 
 const MovieType = new graphql.GraphQLObjectType({
   name: "Movie",
@@ -37,14 +19,12 @@ const QueryRootType = new graphql.GraphQLObjectType({
         type: new graphql.GraphQLList(MovieType),
         description: "List of all Movies",
         resolve: function() {
-          return MovieDB.miscLatestMoviesAsync().then(function(res) {
-            console.log(res);
-            console.log(res != undefined);
-            if (res != undefined)
-              return [{
-                id: res.id,
-                title: res.title,
-              }];
+          return MovieDB.miscUpcomingMoviesAsync().then(function(res) {
+            console.log(res.results != undefined);
+            if (res.results != undefined)
+              return res.results.map( ( item ) => {
+                return { id: item.id,  title: item.title }
+              });
           });
         }
       }

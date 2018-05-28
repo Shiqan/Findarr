@@ -6,10 +6,11 @@ import app from './server';
 import schema from './schema';
 
 const server = http.createServer(app);
+const port = process.env.PORT || 5000;
 let currentApp = app;
 
-server.listen(3000, () => {
-	console.log(`GraphQL-server listening on port 3000.`);
+server.listen(port, () => {
+	console.log(`GraphQL-server listening on port ${port}.`);
 });
 
 if (module.hot) {

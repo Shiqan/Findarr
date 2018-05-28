@@ -2,8 +2,10 @@ const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const StartServerPlugin = require('start-server-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
+    mode: process.env.MODE || 'production',
     entry: ['webpack/hot/poll?1000', './index'],
     watch: true,
     target: 'node',
@@ -31,6 +33,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new Dotenv(),
         new StartServerPlugin('server.js'),
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
