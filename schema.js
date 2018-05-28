@@ -1,4 +1,9 @@
+require('dotenv').config();
+
 const graphql = require('graphql');
+
+var Promise = require("bluebird");
+var MovieDB = Promise.promisifyAll(require('moviedb')(''));
 
 const Movies = [
     {
@@ -32,7 +37,15 @@ const QueryRootType = new graphql.GraphQLObjectType({
         type: new graphql.GraphQLList(MovieType),
         description: "List of all Movies",
         resolve: function() {
-          return Movies
+          return MovieDB.miscLatestMoviesAsync().then(function(res) {
+            console.log(res);
+            console.log(res != undefined);
+            if (res != undefined)
+              return [{
+                id: res.id,
+                title: res.title,
+              }];
+          });
         }
       }
     })
