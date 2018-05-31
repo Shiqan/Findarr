@@ -1,4 +1,6 @@
 const graphql = require('graphql');
+const TrailerType = require('./trailer');
+const TrailerResolver = require('./trailer_resolver');
 
 const Movie = new graphql.GraphQLObjectType({
   name: 'Movie',
@@ -18,7 +20,10 @@ const Movie = new graphql.GraphQLObjectType({
     original_language: { type: graphql.GraphQLString },
     original_title: { type: graphql.GraphQLString },
     backdrop_path: { type: graphql.GraphQLString },
-
+    videos: {
+      type: new graphql.GraphQLList(TrailerType),
+      resolve: TrailerResolver
+    },
   })
 });
 

@@ -1,6 +1,4 @@
-const Promise = require('bluebird');
-const MovieDB = Promise.promisifyAll(require('moviedb')(process.env.TMDB_API_KEY));
-
+const MovieDB = require('./tmdb_api');
 const UpcomingMovieResolver = function() {
     return MovieDB.miscUpcomingMoviesAsync().then(function(res) {
         if (res.results != undefined)

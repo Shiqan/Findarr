@@ -1,12 +1,15 @@
-const Promise = require('bluebird');
-const MovieDB = Promise.promisifyAll(require('moviedb')(process.env.TMDB_API_KEY));
+const MovieDB = require('./tmdb_api');
 
-const TrailerResolver = function(_, {id}) {
-    
+const TrailerResolver = function(source, {id}) {
+    if (source !== 'undefined' && source)  {
+        id = source.id;
+    }
     return MovieDB.movieTrailersAsync({id: id}).then(function(res) {
-        console.log(res);
-        if (res.youtube != undefined)
-            return res.youtube;
+        if (res.youtube != undefined) {
+            return res.youtube.filter(item => {
+                return item.type.toLowerCase() === "trailer";
+            });
+        }
     });
 };
 
