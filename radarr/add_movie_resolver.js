@@ -1,38 +1,31 @@
 const Radarr = require('./radarr_api');
 const MovieDB = require('../tmdb/tmdb_api');
 
-const AddMovieResolver = function(source, {id}) {
+const AddMovieResolver = function(source, {id, profileId}) {
     if (source !== 'undefined' && source)  {
         id = source.id;
     }
 
-    let data = MovieDB.movieInfoAsync({id: id}).then(function(res) {
+    let movie = MovieDB.movieInfoAsync({id: id}).then(function(res) {
         if (res != undefined)
             return res;
     });
 
     let data = {
         'tmdbId': id,
-        'title': data.title,
+        'title': movie.title,
         'qualityProfileId': profileId,
-        'titleSlug': data.titleSlug,
-        'images': data.images,
+        'titleSlug': movie.titleSlug,
+        'images': movie.images,
         'monitored': true,
         'rootFolderPath': process.env.RADARR_ROOTFOLDERPATH,
-        'year': data.year
+        'year': movie.year
     };  
 
-    Radarr.post('movie', data).then(function (res) {
-
-    });
-
-    return MovieDB.movieTrailersAsync({id: id}).then(function(res) {
-        if (res.youtube != undefined) {
-            return res.youtube.filter(item => {
-                return item.type.toLowerCase() === "trailer";
-            });
-        }
+    console.log("POST MOVIE")
+    return Radarr.post('movie', data).then(function (res) {
+        return res
     });
 };
 
-module.exports = TrailerResolver;
+module.exports = AddMovieResolver;

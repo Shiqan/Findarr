@@ -8,6 +8,8 @@ const PopularMovieResolver = require('./tmdb/popular_movie_resolver');
 const TrailerType = require('./tmdb/trailer');
 const TrailerResolver = require('./tmdb/trailer_resolver');
 
+const AddMovieResolver = require('./radarr/add_movie_resolver');
+
 const QueryRootType = new graphql.GraphQLObjectType({
   name: 'QueryRootSchema',
   description: "Schema Query Root",
@@ -41,9 +43,24 @@ const QueryRootType = new graphql.GraphQLObjectType({
   })
 });
 
+const MutationRootType = new graphql.GraphQLObjectType({
+  name: 'MutationRootSchema',
+  description: 'Schema Mutation Root',
+  fields: () => ({
+    add_movie: {
+      type: MovieType,
+      description: "Add movie to Radarr",
+      args: {
+        id: { type: graphql.GraphQLString }
+      },
+      resolve: AddMovieResolver
+    }
+  })
+})
+
 const Schema = new graphql.GraphQLSchema({
-  query: QueryRootType 
-  // mutation: MutationRootType 
+  query: QueryRootType,
+  mutation: MutationRootType 
 });
 
 module.exports = Schema;
