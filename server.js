@@ -1,3 +1,4 @@
+const path = require('path')
 import express from 'express';
 const engine = require('ejs-locals');
 import bodyParser from 'body-parser';
@@ -9,6 +10,8 @@ const app = express();
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function (req, res) {
     res.render('index');
