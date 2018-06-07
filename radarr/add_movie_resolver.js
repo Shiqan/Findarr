@@ -4,6 +4,7 @@ const MovieDB = require('../tmdb/tmdb_api');
 const AddMovieResolver = function(source, {id, profileId}) {
     if (source !== 'undefined' && source)  {
         id = source.id;
+        profileId = source.profileId;
     }
 
     let movie = MovieDB.movieInfoAsync({id: id}).then(function(res) {
