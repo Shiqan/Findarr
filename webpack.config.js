@@ -4,6 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const StartServerPlugin = require('start-server-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
+// TODO setup webpack for production vs dev
 module.exports = {
     mode: process.env.MODE || 'production',
     entry: ['webpack/hot/poll?1000', './index'],
