@@ -1,9 +1,9 @@
-const SonarrAPI = require('sonarr-api');
- 
-var Radarr = new SonarrAPI({
+const radarr = require('sonarr-api');
+
+var Radarr = new radarr({
         hostname: process.env.RADARR_HOSTNAME,
         apiKey: process.env.RADARR_API_KEY,
-        port: process.env.RADARR_PORT,
+        port: 7878,
         urlBase: process.env.RADARR_URLBASE
 });
  

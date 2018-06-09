@@ -51,7 +51,8 @@ const MutationRootType = new graphql.GraphQLObjectType({
       type: MovieType,
       description: "Add movie to Radarr",
       args: {
-        id: { type: graphql.GraphQLString }
+        id: { type: graphql.GraphQLInt },
+        profileId: { type: graphql.GraphQLInt },
       },
       resolve: AddMovieResolver
     }

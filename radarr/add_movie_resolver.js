@@ -7,26 +7,32 @@ const AddMovieResolver = function(source, {id, profileId}) {
         profileId = source.profileId;
     }
 
-    let movie = MovieDB.movieInfoAsync({id: id}).then(function(res) {
-        if (res != undefined)
+    let movie = Radarr.get('movie/lookup/tmdb', {tmdbId: id}).then(res => {
+        return res;
+    }).then(res => {
+        let data = {
+            'tmdbId': id,
+            'title': res.title,
+            'qualityProfileId': profileId,
+            'titleSlug': res.titleSlug,
+            'images': res.images,
+            'monitored': true,
+            'rootFolderPath': process.env.RADARR_ROOTFOLDERPATH,
+            'year': res.year
+        };  
+
+        console.log(data);
+        return Radarr.post('movie', data).then(function (res) {
+            console.log(res);
             return res;
+        }).catch(e => {
+            console.error(e);
+        });  
+    }).catch(e => {
+        console.error(e);
     });
 
-    let data = {
-        'tmdbId': id,
-        'title': movie.title,
-        'qualityProfileId': profileId,
-        'titleSlug': movie.titleSlug,
-        'images': movie.images,
-        'monitored': true,
-        'rootFolderPath': process.env.RADARR_ROOTFOLDERPATH,
-        'year': movie.year
-    };  
-
-    console.log("POST MOVIE")
-    return Radarr.post('movie', data).then(function (res) {
-        return res
-    });
+    return movie;
 };
 
 module.exports = AddMovieResolver;
