@@ -9,6 +9,8 @@ const TrailerType = require('./tmdb/trailer');
 const TrailerResolver = require('./tmdb/trailer_resolver');
 
 const AddMovieResolver = require('./radarr/add_movie_resolver');
+const ProfileType = require('./radarr/profile');
+const ProfileIdResolver = require('./radarr/profile_id_resolver');
 
 const QueryRootType = new graphql.GraphQLObjectType({
   name: 'QueryRootSchema',
@@ -39,7 +41,12 @@ const QueryRootType = new graphql.GraphQLObjectType({
         id: { type: graphql.GraphQLString }
       },
       resolve: TrailerResolver
-    }
+    },
+    profiles: {
+      type: new graphql.GraphQLList(ProfileType),
+      description: "List Radarr Profiles",
+      resolve: ProfileIdResolver
+    },
   })
 });
 

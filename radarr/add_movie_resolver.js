@@ -1,5 +1,4 @@
 const Radarr = require('./radarr_api');
-const MovieDB = require('../tmdb/tmdb_api');
 
 const AddMovieResolver = function(source, {id, profileId}) {
     if (source !== 'undefined' && source)  {
@@ -7,7 +6,7 @@ const AddMovieResolver = function(source, {id, profileId}) {
         profileId = source.profileId;
     }
 
-    let movie = Radarr.get('movie/lookup/tmdb', {tmdbId: id}).then(res => {
+    return Radarr.get('movie/lookup/tmdb', {tmdbId: id}).then(res => {
         return res;
     }).then(res => {
         let data = {
@@ -21,9 +20,7 @@ const AddMovieResolver = function(source, {id, profileId}) {
             'year': res.year
         };  
 
-        console.log(data);
         return Radarr.post('movie', data).then(function (res) {
-            console.log(res);
             return res;
         }).catch(e => {
             console.error(e);
@@ -31,8 +28,6 @@ const AddMovieResolver = function(source, {id, profileId}) {
     }).catch(e => {
         console.error(e);
     });
-
-    return movie;
 };
 
 module.exports = AddMovieResolver;
