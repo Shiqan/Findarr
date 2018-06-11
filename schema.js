@@ -45,6 +45,9 @@ const QueryRootType = new graphql.GraphQLObjectType({
     profiles: {
       type: new graphql.GraphQLList(ProfileType),
       description: "List Radarr Profiles",
+      args: {
+        name: { type: graphql.GraphQLString }
+      },
       resolve: ProfileIdResolver
     },
   })
