@@ -4,6 +4,7 @@ const MovieType = require('./tmdb/movie');
 const MovieResolver = require('./tmdb/movie_resolver');
 const UpcomingMovieResolver = require('./tmdb/upcoming_movie_resolver');
 const PopularMovieResolver = require('./tmdb/popular_movie_resolver');
+const NowPlayingMovieResolver = require('./tmdb/now_playing_movie_resolver');
 
 const TrailerType = require('./tmdb/trailer');
 const TrailerResolver = require('./tmdb/trailer_resolver');
@@ -25,6 +26,11 @@ const QueryRootType = new graphql.GraphQLObjectType({
       type: new graphql.GraphQLList(MovieType),
       description: "List of all popular Movies",
       resolve: PopularMovieResolver
+    },
+    now_playing_movies: {
+      type: new graphql.GraphQLList(MovieType),
+      description: "List of now playing Movies",
+      resolve: NowPlayingMovieResolver
     },
     movie: {
       type: MovieType,

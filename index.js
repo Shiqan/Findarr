@@ -1,9 +1,5 @@
-import http from 'http';
-import { execute, subscribe } from 'graphql';
-import { createServer } from 'http';
-
-import app from './server';
-import schema from './schema';
+const http = require('http');
+const app = require('./server');
 
 const server = http.createServer(app);
 const port = process.env.PORT || 5000;

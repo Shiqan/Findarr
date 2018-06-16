@@ -1,23 +1,16 @@
 const path = require('path')
-import express from 'express';
+const express = require('express');
 const engine = require('ejs-locals');
-import bodyParser from 'body-parser';
-import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
-
+const bodyParser = require('body-parser');
+const gqlExpress = require('graphql-server-express');
+const findarr = require('./findarr');
 const schema = require('./schema.js');
 
 const app = express();
 
-app.engine('ejs', engine);
-app.set('view engine', 'ejs');
+app.use('/', findarr);
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/graphiql', gqlExpress.graphiqlExpress({ endpointURL: '/graphql' }));
+app.use('/graphql', bodyParser.json(), gqlExpress.graphqlExpress({ schema: schema }));
 
-app.get('/', function (req, res) {
-    res.render('index');
-  });
-
-app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
-app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schema }));
-
-export default app;
+module.exports = app;
