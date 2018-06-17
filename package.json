@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/Shiqan/Findarr#readme",
   "dependencies": {
+    "apollo-fetch": "^0.7.0",
     "bluebird": "^3.5.1",
     "dotenv-webpack": "^1.5.5",
     "ejs": "^2.6.1",
