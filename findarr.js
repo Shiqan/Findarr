@@ -12,15 +12,15 @@ const query = `
     query GetPopularMovies {
         popular_movies {
             id
-        title
-        backdrop_path
-        poster_path
-        overview
-        tagline
-        videos {
-            name
-            source
-        }
+            title
+            backdrop_path
+            poster_path
+            overview
+            tagline
+            videos {
+                name
+                source
+            }
         }
     }
 `;
