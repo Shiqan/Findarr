@@ -18,6 +18,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.vue$/,
+                exclude: /node_modules/,
+                loader: 'vue-loader',
+          },
+            {
                 test: /\.js?$/,
                 use: [
                     {
@@ -33,7 +38,7 @@ module.exports = {
             }
         ]
     },
-    plugins: [
+    plugins: [  
         new Dotenv(),
         new StartServerPlugin('server.js'),
         new webpack.NamedModulesPlugin(),
