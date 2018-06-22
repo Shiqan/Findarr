@@ -80,34 +80,70 @@
         </a>
       </li>
     </ul>
+    
+    <movie v-bind:movie="movie" v-for="movie in movies" :key="movie.id"></movie>
   </div>
 </template>
 
 <script>
+import gql from 'graphql-tag'
+import Movie from './Movie'
+
 export default {
   name: 'HelloWorld',
+  components: {
+      Movie 
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      movies: []
     }
+  },
+  methods: {
+    async getMovies () {
+      const response = await this.$apollo.query({
+        query: gql`
+            query GetPopularMovies {
+                popular_movies {
+                    id
+                    title
+                    backdrop_path
+                    poster_path
+                    overview
+                    tagline
+                    videos {
+                        name
+                        source
+                    }
+                }
+            }
+        `
+      })
+      console.log(response.data)
+      this.movies = response.data.popular_movies
+    }
+  },
+  async created () {
+    this.getMovies()
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+  a {
+    color: #42b983;
+  }
 </style>

@@ -6,31 +6,8 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
 export default {
   name: 'app',
-  async created() {
-    const response = await this.$apollo.query({
-        query: gql`
-            query GetPopularMovies {
-                popular_movies {
-                    id
-                    title
-                    backdrop_path
-                    poster_path
-                    overview
-                    tagline
-                    videos {
-                        name
-                        source
-                    }
-                }
-            }
-        `
-    })
-    console.log(response.data)
-  }
 }
 </script>
 
