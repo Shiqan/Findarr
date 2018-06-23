@@ -9,6 +9,9 @@ const NowPlayingMovieResolver = require('./tmdb/now_playing_movie_resolver');
 const TrailerType = require('./tmdb/trailer');
 const TrailerResolver = require('./tmdb/trailer_resolver');
 
+const ConfigurationType = require('./tmdb/configuration');
+const ConfigurationResolver = require('./tmdb/configuration_resolver');
+
 const AddMovieResolver = require('./radarr/add_movie_resolver');
 const ProfileType = require('./radarr/profile');
 const ProfileIdResolver = require('./radarr/profile_id_resolver');
@@ -56,6 +59,11 @@ const QueryRootType = new graphql.GraphQLObjectType({
       },
       resolve: ProfileIdResolver
     },
+    configuration: {
+      type: ConfigurationType,
+      description: "Get tmdb configuration",
+      resolve: ConfigurationResolver
+    }
   })
 });
 

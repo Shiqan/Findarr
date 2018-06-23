@@ -59,11 +59,12 @@ const MovieDB = require('./tmdb_api');
 //     vote_average: 7.9,
 //     vote_count: 1461 }
 
+
 const MovieResolver = function(_, {id}) {
     return MovieDB.movieInfoAsync({id: id}).then(function(res) {
         if (res != undefined)
             return res;
-    });
+    }).catch(e => console.error(e));
 };
 
 module.exports = MovieResolver;
