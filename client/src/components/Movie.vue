@@ -1,9 +1,17 @@
-<template>
-  <div class="movie">
-    <h1 class="title">{{ movie.title }}</h1>
-    <span> {{ movie.overview }} </span>
-    <router-link :to="{ name: 'MoviePage', params: { 'id': movie.id } }"> more info </router-link>
-  </div>
+<template>    
+    <v-flex xs12 md4>
+      <v-card class="elevation-0 transparent">
+        <v-card-text class="text-xs-center">
+          <v-icon x-large class="blue--text text--lighten-2">color_lens</v-icon>
+        </v-card-text>
+        <v-card-title primary-title class="layout justify-center">
+          <div class="headline text-xs-center">{{ movie.title }}</div>
+        </v-card-title>
+        <v-card-text>
+          {{ movie.overview }}
+        </v-card-text>
+      </v-card>
+    </v-flex>
 </template>
 
 <script>
@@ -13,7 +21,5 @@
 </script>
 
 <style scoped>
-  a {
-    color: #42b983;
-  }
+
 </style>

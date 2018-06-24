@@ -1,26 +1,36 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <v-app light>
+      <v-toolbar class="white">
+        <v-toolbar-title v-text="title"></v-toolbar-title>
+      </v-toolbar>
+      
+      <v-content>
+        <router-view/>
+
+        <v-footer class="blue darken-2">
+          <v-layout row wrap align-center>
+            <v-flex xs12>
+              <div class="white--text ml-3"> Made with <v-icon class="red--text">favorite</v-icon> by <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a> and <a class="white--text" href="https://github.com/vwxyzjn">Costa Huang</a></div>
+            </v-flex>
+          </v-layout>
+        </v-footer>
+      </v-content>  
+    </v-app>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-}
+  name: "app",
+  data () {
+    return {
+      title: 'Welcome to Your Vue.js App'
+    }
+  },
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.link {
-  margin: 0px 2px;
-}
+<style lang="scss">
+@import '~/vuetify/dist/vuetify.min.css'; // Ensure you are using css-loader
 </style>

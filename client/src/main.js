@@ -1,11 +1,14 @@
 import Vue from 'vue'
+import Vuetify from 'vuetify'
+
 import App from './App'
 import apollo from './apollo-client'
-
 import router from './router'
 
 Vue.config.productionTip = false
 Vue.prototype.$apollo = apollo
+
+Vue.use(Vuetify)
 
 new Vue({
   router,
