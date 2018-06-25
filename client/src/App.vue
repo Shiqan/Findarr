@@ -31,6 +31,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import '~/vuetify/dist/vuetify.min.css'; // Ensure you are using css-loader
+<style>
+
 </style>
