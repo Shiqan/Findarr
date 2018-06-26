@@ -38,9 +38,10 @@
               </span>
             </div>
           </v-flex>
+
           <v-flex xs12>
-            <v-container grid-list-xl>
-              <v-layout row wrap align-center>
+            <v-container fluid grid-list-xl>
+              <v-layout row wrap>
                   <movie v-bind:movie="movie" v-for="(movie, index) in movie_carousel" :key="movie.id" v-bind:class="{ active: index == 0 }"></movie>
               </v-layout>
             </v-container>
@@ -89,7 +90,7 @@ export default {
       })
       
       this.movies = response.data.popular_movies
-      this.movie_carousel = this.movies.slice(0, 3)
+      this.movie_carousel = this.movies.slice(0, 5)
     }
   },
   async created () {
