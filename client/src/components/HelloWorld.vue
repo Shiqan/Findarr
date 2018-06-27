@@ -1,24 +1,19 @@
 <template>
   <div class="wrapper">
-      <section>
-        <v-parallax src="assets/hero.jpeg" height="600">
+      <section v-if="loaded">
+        <v-parallax :src="'https://image.tmdb.org/t/p/original/' + movie_highlighted.backdrop_path" height="600">
           <v-layout
             column
             align-center
             justify-center
             class="white--text"
           >
-            <img src="assets/vuetify.png" alt="Vuetify.js" height="200">
-            <h1 class="white--text mb-2 display-1 text-xs-center">Parallax Template</h1>
-            <div class="subheading mb-3 text-xs-center">Powered by Vuetify</div>
-            <v-btn
-              class="blue lighten-2 mt-5"
-              dark
-              large
-              href="/pre-made-themes"
-            >
-              Get Started
-            </v-btn>
+            <h1 class="white--text mb-2 display-1 text-xs-center"> {{ movie_highlighted.title }} </h1>
+            <div class="subheading mb-3 text-xs-center"> {{ movie_highlighted.tagline }} </div>
+             <div class="mt-5">
+              <v-btn large color="primary" href="/">Watch trailer</v-btn>
+              <v-btn large dark color="purple" href="/">Add to Radarr</v-btn>
+            </div>
           </v-layout>
         </v-parallax>
     </section>
@@ -32,17 +27,17 @@
         >
           <v-flex xs12 sm4 class="my-3">
             <div class="text-xs-center">
-              <h2 class="headline">The best way to start developing</h2>
-              <span class="subheading">
+              <h2 class="headline">Popular Movies</h2>
+              <!-- <span class="subheading">
                 Cras facilisis mi vitae nunc 
-              </span>
+              </span> -->
             </div>
           </v-flex>
 
           <v-flex xs12>
             <v-container fluid grid-list-xl>
               <v-layout row wrap>
-                  <movie v-bind:movie="movie" v-for="(movie, index) in movie_carousel" :key="movie.id" v-bind:class="{ active: index == 0 }"></movie>
+                  <movie v-bind:movie="movie" v-for="(movie, index) in movies" :key="movie.id" v-bind:class="{ active: index == 0 }"></movie>
               </v-layout>
             </v-container>
           </v-flex>
@@ -64,7 +59,8 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       movies: [],
-      movie_carousel: []
+      loaded: false,
+      movie_highlighted: undefined
     }
   },
   methods: {
@@ -90,7 +86,8 @@ export default {
       })
       
       this.movies = response.data.popular_movies
-      this.movie_carousel = this.movies.slice(0, 5)
+      this.movie_highlighted = this.movies[0]
+      this.loaded = true
     }
   },
   async created () {

@@ -8,10 +8,10 @@
       <v-content>
         <router-view/>
 
-        <v-footer class="blue darken-2">
+        <v-footer class="blue darken-2 text-xs-center">
           <v-layout row wrap align-center>
             <v-flex xs12>
-              <div class="white--text ml-3"> Made with <v-icon class="red--text">favorite</v-icon> by <a class="white--text" href="https://vuetifyjs.com" target="_blank">Vuetify</a> and <a class="white--text" href="https://github.com/vwxyzjn">Costa Huang</a></div>
+              <div class="white--text ml-3"> Licensed under <a class="white--text" target="_blank" href="https://github.com/Shiqan/Findarr#license" title="MIT License">MIT License</a></div>
             </v-flex>
           </v-layout>
         </v-footer>
@@ -25,7 +25,7 @@ export default {
   name: "app",
   data () {
     return {
-      title: 'Welcome to Your Vue.js App'
+      title: 'Findarr'
     }
   },
 };
