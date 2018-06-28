@@ -4,7 +4,7 @@
         <v-card-media
           :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path"
           height="300px"
-          contain="true"
+          contain
         >
         </v-card-media>
         <v-card-title primary-title>
@@ -28,15 +28,13 @@
         </v-slide-y-transition>
       </v-card>
 
-      <v-dialog v-model="trailerdialog" max-width="500px">
+      <v-dialog v-model="trailerdialog" max-width="992px">
         <v-card>
           <v-card-title>
-            <span> {{ movie.videos[0].source }} </span>
-            <!-- TODO: vue-youtube-embed -->
-            <v-spacer></v-spacer>
+            <youtube :player-width="960" :player-height="585" :video-id="movie.videos[0].source"></youtube>
           </v-card-title>
           <v-card-actions>
-            <v-btn color="primary" flat @click.stop="trailerdialog=false">Close</v-btn>
+            <v-btn color="primary" flat @click="trailerdialog=false">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -44,6 +42,8 @@
 </template>
 
 <script>
+  // :player-vars="{ autoplay: 1 }"
+  
   export default {
     props: ['movie'],
     data () {
