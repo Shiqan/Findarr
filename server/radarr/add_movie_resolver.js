@@ -5,7 +5,6 @@ const AddMovieResolver = function(source, {id, profileId}) {
         id = source.id;
         profileId = source.profileId;
     }
-
     return Radarr.get('movie/lookup/tmdb', {tmdbId: id}).then(res => {
         return res;
     }).then(res => {

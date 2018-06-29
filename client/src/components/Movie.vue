@@ -2,7 +2,7 @@
     <v-flex xs12 sm2>
       <v-card>
         <v-card-media
-          :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path"
+          :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path" 
           height="300px"
           contain
         >
@@ -12,10 +12,11 @@
             <div class="headline">{{ movie.title }}</div>
             <span class="grey--text">{{ movie.release_date }}</span>
           </div>
+          <div v-if="error">{{error}}</div>
         </v-card-title>
         <v-card-actions>
-          <v-btn flat @click.stop="trailerdialog = true">Watch trailer</v-btn>
-          <v-btn flat color="purple">Add to Radarr</v-btn>
+          <v-btn flat @click="trailerdialog=true">Watch trailer</v-btn>
+          <v-btn flat color="purple" @click="addToRadarr">Add to Radarr</v-btn>
           <v-spacer></v-spacer>
           <v-btn icon @click.native="show = !show">
             <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
@@ -43,16 +44,40 @@
 
 <script>
   // :player-vars="{ autoplay: 1 }"
-  
+  import gql from 'graphql-tag'
+
   export default {
     props: ['movie'],
     data () {
       return {
         show: false,
-        trailerdialog: false
+        error: "",
+        trailerdialog: false,
+        image: "" // TODO
       }
-    }
+    },
+    methods: {
+      async addToRadarr () {
+        const response = await this.$apollo.mutate({
+          mutation: gql`
+            mutation AddMovie($id: Int!, $profileId: Int!) {
+              add_movie(id: $id, profileId: $profileId) {
+                title
+              }
+            }
+          `,
+          variables: {
+            "id": this.movie.id,
+            "profileId": 6 // TODO
+          }
+        }).catch(error => {
+          console.error(error);
+          this.error = `There has been a problem adding ${this.movie.title}`;
+        });
+      }
+    },
   }
+
 </script>
 
 <style scoped>
