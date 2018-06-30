@@ -12,7 +12,7 @@
             <div class="headline">{{ movie.title }}</div>
             <span class="grey--text">{{ movie.release_date }}</span>
           </div>
-          <div v-if="error">{{error}}</div>
+          <div v-if="showError">{{error}}</div>
         </v-card-title>
         <v-card-actions>
           <v-btn flat @click="trailerdialog=true">Watch trailer</v-btn>
@@ -51,6 +51,7 @@
     data () {
       return {
         show: false,
+        showError: false,
         error: "",
         trailerdialog: false,
         image: "" // TODO
@@ -58,6 +59,8 @@
     },
     methods: {
       async addToRadarr () {
+        let profile = this.$store.state.defaultQualityProfileId
+
         const response = await this.$apollo.mutate({
           mutation: gql`
             mutation AddMovie($id: Int!, $profileId: Int!) {
@@ -68,10 +71,11 @@
           `,
           variables: {
             "id": this.movie.id,
-            "profileId": 6 // TODO
+            "profileId": profile
           }
         }).catch(error => {
           console.error(error);
+          this.showError = true
           this.error = `There has been a problem adding ${this.movie.title}`;
         });
       }

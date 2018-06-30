@@ -31,6 +31,14 @@
               <!-- <span class="subheading">
                 Cras facilisis mi vitae nunc 
               </span> -->
+              
+            <v-select
+              :items="this.$store.state.qualityProfiles"
+              label="Radarr Quality Profile"
+              item-text="name"
+              item-value="id"
+              v-model="this.$store.state.defaultQualityProfileId"
+            ></v-select>
             </div>
           </v-flex>
 
@@ -60,7 +68,7 @@ export default {
       msg: 'Welcome to Your Vue.js App',
       movies: [],
       loaded: false,
-      movie_highlighted: undefined
+      movie_highlighted: undefined,
     }
   },
   methods: {
@@ -88,10 +96,12 @@ export default {
       this.movies = response.data.popular_movies
       this.movie_highlighted = this.movies[0]
       this.loaded = true
-    }
+    },
   },
   async created () {
     this.getMovies()
+    await this.$store.dispatch('getDefaultQualityProfile')
+    await this.$store.dispatch('getQualityProfiles')
   }
 }
 </script>
