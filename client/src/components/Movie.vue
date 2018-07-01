@@ -2,7 +2,7 @@
     <v-flex xs12 sm2>
       <v-card>
         <v-card-media
-          :src="'https://image.tmdb.org/t/p/w342/' + movie.poster_path" 
+          :src="image" 
           height="300px"
           contain
         >
@@ -54,7 +54,13 @@
         showError: false,
         error: "",
         trailerdialog: false,
-        image: "" // TODO
+      }
+    },
+    computed: {
+      image () {
+        let x = this.$store.state.imagePath + this.$store.state.posterQuality + this.movie.poster_path
+        console.log(x)
+        return x
       }
     },
     methods: {

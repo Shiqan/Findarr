@@ -102,6 +102,7 @@ export default {
     this.getMovies()
     await this.$store.dispatch('getDefaultQualityProfile')
     await this.$store.dispatch('getQualityProfiles')
+    await this.$store.dispatch('getImageSettings')
   }
 }
 </script>

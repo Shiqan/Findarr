@@ -6,8 +6,16 @@ import apollo from './apollo-client'
 Vue.use(Vuex)
 
 const state = {
-  qualityProfiles: [],
-  defaultQualityProfileId: 0
+    // RADARR
+    qualityProfiles: [],
+    defaultQualityrofileId: 0,
+
+    // TMDB 
+    imagePath: "",
+    backdropQualities: [],
+    posterQualities: [],
+    posterQuality: "",
+    backdropQuality: ""
 }
 
 const mutations = {
@@ -17,6 +25,14 @@ const mutations = {
 
   SET_DEFAULT_PROFILE (state, { qualityProfile }) {
       state.defaultQualityProfileId = qualityProfile.id
+  },
+
+  SET_IMAGE_SETTINGS (state, { config }) {
+      state.imagePath = config.images.secure_base_url
+      state.backdropQualities = config.images.backdrop_sizes
+      state.posterQualities = config.images.poster_sizes
+      state.posterQuality = config.images.poster_sizes[3] // TODO
+      state.backdropQuality = config.images.backdrop_sizes[1] // TODO
   }
 }
 
@@ -60,6 +76,28 @@ const actions = {
     commit('SET_DEFAULT_PROFILE', { qualityProfile })
 
     console.timeEnd('getDefaultQualityProfile')
+  },
+
+  async getImageSettings({ commit }) {
+    console.time('GetImageSettings')
+
+    const response = await apollo.query({
+        query: gql`
+            query GetImageSettings {
+                configuration {
+                    images {
+                        secure_base_url
+                        poster_sizes
+                        backdrop_sizes
+                    }
+                }
+            }
+        `
+    })
+    let config = response.data.configuration
+    commit('SET_IMAGE_SETTINGS', { config })
+
+    console.timeEnd('getImagePath')
   }
 }
 
