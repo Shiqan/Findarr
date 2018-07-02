@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import HelloWorld from './components/HelloWorld'
-import MoviePage from './components/MoviePage'
+import PopularMovies from './components/PopularMovies'
+import MovieDetails from './components/MovieDetails'
 
 Vue.use(VueRouter)
 
@@ -11,13 +11,13 @@ export default new VueRouter({
   routes: [
     {
         path: '/',
-        name: 'HelloWorld',
-        component: HelloWorld
+        name: 'PopularMovies',
+        component: PopularMovies
     },
     {
       path: '/movie/:id',
-      name: 'MoviePage',
-      component: MoviePage
+      name: 'MovieDetails',
+      component: MovieDetails
   }
   ]
 })

@@ -1,6 +1,6 @@
 <template>
     <v-flex xs12 sm2>
-      <v-card>
+      <v-card :href="'/movie/' + movie.id">
         <v-card-media
           :src="image" 
           height="300px"

@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
       <section v-if="loaded">
-        <v-parallax :src="'https://image.tmdb.org/t/p/original/' + movie_highlighted.backdrop_path" height="600">
+        <v-parallax :src="headerImage" height="600">
           <v-layout
             column
             align-center
@@ -59,7 +59,7 @@ import gql from 'graphql-tag'
 import Movie from './Movie'
 
 export default {
-  name: 'HelloWorld',
+  name: 'PopularMovies',
   components: {
       Movie
   },
@@ -69,6 +69,13 @@ export default {
       movies: [],
       loaded: false,
       movie_highlighted: undefined,
+    }
+  },
+  computed: {
+    headerImage () {
+      let x = this.$store.state.imagePath + 'original' + this.movie_highlighted.backdrop_path
+      console.log(x)
+      return x
     }
   },
   methods: {

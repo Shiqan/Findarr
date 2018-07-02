@@ -79,7 +79,7 @@ const actions = {
   },
 
   async getImageSettings({ commit }) {
-    console.time('GetImageSettings')
+    console.time('getImageSettings')
 
     const response = await apollo.query({
         query: gql`
@@ -97,7 +97,7 @@ const actions = {
     let config = response.data.configuration
     commit('SET_IMAGE_SETTINGS', { config })
 
-    console.timeEnd('getImagePath')
+    console.timeEnd('getImageSettings')
   }
 }
 
